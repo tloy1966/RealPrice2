@@ -1,0 +1,233 @@
+@model IEnumerable<RealPrice.Models.MainData>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.City)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.SellType)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.District)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.CaseT)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Location)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Landa)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.CaseF)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.LandaX)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.LandaY)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Sdate)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Scnt)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Sbuild)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Tbuild)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Buitype)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Pbuild)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Mbuild)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Fdate)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Farea)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.BuildR)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.BuildL)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.BuildB)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.BuildP)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Rule)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Furniture)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Tprice)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Uprice)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Parktype)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Parea)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Pprice)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Rmnote)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Id2)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.IsActive)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Lat)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Lon)
+                </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.City)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.SellType)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.District)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CaseT)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Location)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Landa)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CaseF)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.LandaX)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.LandaY)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Sdate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Scnt)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Sbuild)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Tbuild)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Buitype)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Pbuild)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Mbuild)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Fdate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Farea)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.BuildR)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.BuildL)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.BuildB)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.BuildP)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Rule)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Furniture)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Tprice)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Uprice)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Parktype)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Parea)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Pprice)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Rmnote)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Id2)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.IsActive)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Lat)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Lon)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

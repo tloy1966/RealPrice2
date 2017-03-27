@@ -1,0 +1,80 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+@{
+    ViewData["Title"] = "大數據房價分析!";
+}
+<link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />
+<link rel="stylesheet" href="~/css/loading.css" />
+<h3>@ViewData["Message"]</h3>
+<div class="jumbotron">
+    <h1>大數據房價分析! </h1>
+    <h3>
+        用最快速方式找到最適合的住宅 For Free! <a href="https://www.facebook.com/visualizationRealPrice/">FB 建議我!</a>
+    </h3>
+    <h3>Apple系列請透過Chrome查詢</h3>
+</div>
+
+
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <div class="row">
+            <div class="btn btn-group" role="group" aria-label="...">
+                <button id="btnCity0" type="button" class="btn btn-default" onclick="SelectCity(0)">台北 新北</button>
+                <button id="btnCity1" type="button" class="btn btn-default" onclick="SelectCity(1)">台中</button>
+                <button id="btnCity2" type="button" class="btn btn-default" onclick="SelectCity(2)">高雄</button>
+                <button id="btnCity2" type="button" class="btn btn-default">請點選下圖!!!</button>
+                <p style="font-size:large"></p>
+            </div>
+        </div>
+        
+    </div>
+
+    <div class="panel-body">
+        <div class="row">
+            <div id="vizTreeMap" class="col-sm-12" style="height:400px"></div>
+        </div>
+        <br />
+        <div class="row">
+            <input type="button" class="btn btn-primary" value="Show location"
+                   data-toggle="collapse" data-target="#vizLocation"
+                   aria-expanded="false" aria-controls="vizLocation">
+        </div>
+        <div class="row">
+            <div id="vizHCLocation" class="col-md-12" style="min-height:300px"></div>
+        </div>
+        <br />
+
+        <div class="row">
+            <div class="col-md-6">
+                <div id="vizHistory" class="col-md-12" style="min-height:220px"></div>
+            </div>
+            <div class="col-md-6">
+                <div id="map" class="col-md-12" style="min-height:220px"></div>
+            </div>
+
+        </div>
+        <br />
+
+    </div>
+
+</div>
+
+<script src="~/lib/jquery/dist/jquery.js"></script>
+
+<!--<script src="~/lib/bootstrap/dist/js/bootstrap.js"></script>
+-->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+<script src="~/lib/d3/d3.js"></script>
+<script src="~/lib/d3plus/d3plus.full.js"></script>
+<script src="~/js/alasql.min.js"></script>
+
+<script src="http://code.highcharts.com/highcharts.js"></script>
+<script src="~/js/myD3Plus.js"></script>
+<script src="~/js/ga.js"></script>
+<script src="~/js/googleMap.js"></script>
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCvyIqaAmoFQUFtcZeM3gPRd96izMoINjs" defer></script>
+
+
