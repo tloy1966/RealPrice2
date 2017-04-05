@@ -12,11 +12,7 @@ namespace RealPrice.Controllers
         private Models.RealPriceContext _context;
         static IQueryable<Models.MainData> _dataAll;
         private IMemoryCache _cache;
-        string TaipeiKey = "Taipei";
-        DataTable _dtCacheTaipei;
-        DataTable _dtCacheTaiChung;
-        DataTable _dtCacheKaoHsiung;
-        public static string googleMapKey = "AIzaSyA4pcY_w63SDnIUwlLf7kdmUCAdbiwN2EQ";
+
         public HomeController(Models.RealPriceContext context, IMemoryCache memoryCache)
         {
             _context = context;
@@ -77,8 +73,14 @@ namespace RealPrice.Controllers
                 case (int)Models.Paras.City.KaoHsiung:
                     tempData = _context.MainData.Where(w => (w.City == "E"));
                     break;
-                default:
+                case (int)Models.Paras.City.Hsinchu:
+                    tempData = _context.MainData.Where(w => (w.City == "O" || w.City=="J"));
                     break;
+                case (int)Models.Paras.City.Taoyuan:
+                    tempData = _context.MainData.Where(w => (w.City == "H"));
+                    break;
+                default:
+                    return null;
             }
                 
             tempData = tempData.Where(w => w.SellType == "A" && w.Pbuild == "住家用"
@@ -290,37 +292,57 @@ namespace RealPrice.Controllers
         }
         public JsonResult CachedData(int City)
         {
+            if(!Enum.IsDefined(typeof(Models.Paras.City), City))
+            {
+                return null;
+            }
+
+            
             try
             {
                 switch (City)
                 {
                     case (int)Models.Paras.City.Taipei:
-                        if (!_cache.TryGetValue(Models.Paras.City.Taipei, out _dtCacheTaipei))
+                        if (!_cache.TryGetValue(Models.Paras.City.Taipei, out Models.Paras._dtCacheTaipei))
                         {
-
-                            _dtCacheTaipei = testGetData2(City);
-                            _cache.Set(TaipeiKey, _dtCacheTaipei, new MemoryCacheEntryOptions().SetAbsoluteExpiration(TimeSpan.FromDays(7)));
+                            Models.Paras._dtCacheTaipei = testGetData2(City);
+                            _cache.Set(Models.Paras.City.Taipei, Models.Paras._dtCacheTaipei, new MemoryCacheEntryOptions().SetAbsoluteExpiration(TimeSpan.FromDays(7)));
                         }
+                        return Json(Models.Paras._dtCacheTaipei);
 
-                        return Json(_dtCacheTaipei);
                     case (int)Models.Paras.City.TaiChung:
-                        if (!_cache.TryGetValue(Models.Paras.City.TaiChung, out _dtCacheTaiChung))
+                        if (!_cache.TryGetValue(Models.Paras.City.TaiChung, out Models.Paras._dtCacheTaiChung))
                         {
-                            _dtCacheTaiChung = testGetData2(City);
-                            _cache.Set(Models.Paras.City.TaiChung, _dtCacheTaiChung, new MemoryCacheEntryOptions().SetAbsoluteExpiration(TimeSpan.FromDays(7)));
+                            Models.Paras._dtCacheTaiChung = testGetData2(City);
+                            _cache.Set(Models.Paras.City.TaiChung, Models.Paras._dtCacheTaiChung, new MemoryCacheEntryOptions().SetAbsoluteExpiration(TimeSpan.FromDays(7)));
                         }
+                        return Json(Models.Paras._dtCacheTaiChung);
 
-                        return Json(_dtCacheTaiChung);
                     case (int)Models.Paras.City.KaoHsiung:
-                        if (!_cache.TryGetValue(Models.Paras.City.KaoHsiung, out _dtCacheKaoHsiung))
+                        if (!_cache.TryGetValue(Models.Paras.City.KaoHsiung, out Models.Paras._dtCacheKaoHsiung))
                         {
-                            _dtCacheKaoHsiung = testGetData2(City);
-                            _cache.Set(Models.Paras.City.KaoHsiung, _dtCacheKaoHsiung, new MemoryCacheEntryOptions().SetAbsoluteExpiration(TimeSpan.FromDays(7)));
+                            Models.Paras._dtCacheKaoHsiung = testGetData2(City);
+                            _cache.Set(Models.Paras.City.KaoHsiung, Models.Paras._dtCacheKaoHsiung, new MemoryCacheEntryOptions().SetAbsoluteExpiration(TimeSpan.FromDays(7)));
                         }
+                        return Json(Models.Paras._dtCacheKaoHsiung);
 
-                        return Json(_dtCacheKaoHsiung);
+                    case (int)Models.Paras.City.Hsinchu:
+                        if (!_cache.TryGetValue(Models.Paras.City.Hsinchu, out Models.Paras._dtCacheHsinchu))
+                        {
+                            Models.Paras._dtCacheHsinchu = testGetData2(City);
+                            _cache.Set(Models.Paras.City.Hsinchu, Models.Paras._dtCacheHsinchu, new MemoryCacheEntryOptions().SetAbsoluteExpiration(TimeSpan.FromDays(7)));
+                        }
+                        return Json(Models.Paras._dtCacheHsinchu);
+
+                    case (int)Models.Paras.City.Taoyuan:
+                        if (!_cache.TryGetValue(Models.Paras.City.Taoyuan, out Models.Paras._dtCacheTaoyuan))
+                        {
+                            Models.Paras._dtCacheTaoyuan = testGetData2(City);
+                            _cache.Set(Models.Paras.City.Taoyuan, Models.Paras._dtCacheTaoyuan, new MemoryCacheEntryOptions().SetAbsoluteExpiration(TimeSpan.FromDays(7)));
+                        }
+                        return Json(Models.Paras._dtCacheTaoyuan);
                     default:
-                        return Json(_dtCacheTaipei);
+                        return Json(Models.Paras._dtCacheTaipei);
                 }
 
             }

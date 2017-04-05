@@ -24,7 +24,7 @@ function drawTreeMap2(data) {
         .type("tree_map")
         .id(["district", "buitype"])
         .size("uprice")
-        .title("不動產買賣! 請點擊區域")
+        .title("不動產買賣! 請點擊區域 (uprice:每坪價格,  landa:坪數)")
         .color("uprice")
         .ui([
             {
@@ -37,6 +37,7 @@ function drawTreeMap2(data) {
             }
         ])
         .aggs({ "uprice": "mean" })
+        .aggs({ "landa": "mean" })
         .mouse({
             "over": function (dp, tdiv) {
                 if (dp.d3plus.depth === 1) {

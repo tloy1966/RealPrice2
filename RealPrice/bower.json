@@ -6,10 +6,11 @@
     "jquery": "2.2.0",
     "jquery-validation": "1.14.0",
     "jquery-validation-unobtrusive": "3.2.6",
-    "d3": "v4.7.3",
-    "d3plus": "v1.9.8"
+    "d3": "v4.7.4",
+    "d3plus": "v1.9.8",
+    "highcharts": "v5.0.9"
   },
   "resolutions": {
-    "d3": "v4.7.3"
+    "d3": "v4.7.4"
   }
 }
