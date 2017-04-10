@@ -1,4 +1,5 @@
 ﻿var _tData = [];
+var isMRT = false;
 var vizLocation = d3plus.viz()
             .container("#vizLocation");
 var vizHistory = d3plus.viz()
@@ -12,6 +13,14 @@ $.get('home/CachedData', function (data) {
 });
 function SelectCity(City)
 {
+    if (City == 0) {
+        console.log("show mrt");
+        isMRT = true;
+    }
+    else
+    {
+        isMRT = false;
+    }
     console.log('home/CachedData?City=' + City);
     $.get('home/CachedData?City=' + City, function (data) {
         console.log('GotData!');
@@ -300,7 +309,7 @@ function HCHistory(url,location)
             }],
             tooltip: {
                 formatter: function () {
-                    return '總價:' + yTprice[this.points[0].point.x] + '萬, 房齡:' + yAge[this.points[0].point.x] + ', <br>' + yBuildR[this.points[0].point.x] + '房' + yBuildL[this.points[0].point.x] + '廳, 層數:' + ySBuild[this.points[0].point.x] + ', <br>車位:' + yParktype[this.points[0].point.x] + ', 其他:' + yRmnote[this.points[0].point.x];
+                    return '總價:' + yTprice[this.points[0].point.x] + '萬, 房齡:' + yAge[this.points[0].point.x] + ',<br>'+yLanda[this.points[0].point.x]+'坪, ' + yBuildR[this.points[0].point.x] + '房' + yBuildL[this.points[0].point.x] + '廳, 層數:' + ySBuild[this.points[0].point.x] + ', <br>車位:' + yParktype[this.points[0].point.x] + ', 其他:' + yRmnote[this.points[0].point.x];
                 },
                 //pointFormat: '{series.name} : <b>{point.y}</b><br/>'+''+'<br/>',
                 shared: true

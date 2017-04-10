@@ -5,6 +5,8 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using System.Data;
 using Microsoft.Extensions.Caching.Memory;
+using System.Net;
+using Newtonsoft.Json;
 namespace RealPrice.Controllers
 {
     public class HomeController : Controller
@@ -12,7 +14,8 @@ namespace RealPrice.Controllers
         private Models.RealPriceContext _context;
         static IQueryable<Models.MainData> _dataAll;
         private IMemoryCache _cache;
-
+        static private readonly string apiKey = "AIzaSyA4pcY_w63SDnIUwlLf7kdmUCAdbiwN2EQ";
+        static private readonly string testKey = "AIzaSyBlEnOEgknWMReRy_XAKq2ars1I0zhEuc8";
         public HomeController(Models.RealPriceContext context, IMemoryCache memoryCache)
         {
             _context = context;
@@ -296,7 +299,6 @@ namespace RealPrice.Controllers
             {
                 return null;
             }
-
             
             try
             {
@@ -353,6 +355,55 @@ namespace RealPrice.Controllers
                 return Json(new DataTable());
             }
 
+        }
+        public  string getPlaceID(string location, string type)
+        {
+            if (string.IsNullOrEmpty(type))
+            {
+                type = "subway_station";
+            }
+            string jsonResult = "";
+            using (WebClient wc = new WebClient())
+            {
+                string _url = $"https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=25.173214,121.4406446&radius=1000&type={type}&key={testKey}";
+                jsonResult = wc.DownloadString(_url);
+            }
+            dynamic j = JsonConvert.DeserializeObject(jsonResult);
+            return j.results[0].place_id;//nearby mrt place id
+        }
+
+        private Models.Geo parseGeo(string jStr)
+        {
+            dynamic jsonResult = JsonConvert.DeserializeObject(jStr);
+            Models.Geo _geo = new Models.Geo();
+            try
+            {
+                _geo.statName = jsonResult.results[0].address_components[0].long_name;
+                _geo.formattedAddress = jsonResult.results[0].formatted_address;
+                _geo.lat = jsonResult.results[0].geometry.location.lat.Value;
+                _geo.lng = jsonResult.results[0].geometry.location.lng.Value;
+                _geo.place_id = jsonResult.results[0].place_id;
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+            }
+            return _geo;
+        }
+
+        public float getDistance(string place_id, string origins)
+        {
+            float _dis = 0;
+            string jsonResult;
+            using (WebClient wc = new WebClient())
+            {
+                string _url = $"https://maps.googleapis.com/maps/api/distancematrix/json?origins={origins}&destinations=place_id:{place_id}&key={testKey}";
+
+                jsonResult = wc.DownloadString(_url);
+            }
+            dynamic j = JsonConvert.DeserializeObject(jsonResult);
+
+            return int.Parse(j.rows.elements.distance.value);//return json format of duration and distance
         }
     }
 }

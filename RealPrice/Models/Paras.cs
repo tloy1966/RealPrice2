@@ -22,7 +22,25 @@ namespace RealPrice.Models
             Hsinchu = 3,
             Taoyuan = 4 
         }
-
+        static public DataTable getCityData(int _city)
+        {
+            switch ((City)_city)
+            {
+                case City.Taipei:
+                    return _dtCacheTaipei;
+                case City.TaiChung:
+                    return _dtCacheTaiChung;
+                case City.KaoHsiung:
+                    return _dtCacheKaoHsiung;
+                case City.Hsinchu:
+                    return _dtCacheHsinchu;
+                case City.Taoyuan:
+                    return _dtCacheTaoyuan;
+                         
+                default:
+                    return null; 
+            }
+        }
         /*
          C,基隆市
 A,臺北市
