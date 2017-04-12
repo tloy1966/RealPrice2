@@ -3,7 +3,7 @@ var _lat = 0;
 var _lng = 0;
 function GetGeo(address) {
     //var address = $("#Text1").val();
-    var url = 'https://maps.googleapis.com/maps/api/geocode/json?address=' + address + '&key=AIzaSyBWUCMkUcG_a1WwK3AuadD4eLWmFPD71vY';
+    var url = 'https://maps.googleapis.com/maps/api/geocode/json?address=' + address + '&key=AIzaSyBlEnOEgknWMReRy_XAKq2ars1I0zhEuc8';
     $.getJSON(url, function (data) {
         console.log('GetJson');
         console.log(address);
@@ -31,14 +31,14 @@ function initMap() {
 }
 
 function GoMap(_lat, _lng, _address) {
-    var myLatLng = { lat: _lat, lng: _lng };
     var map = new google.maps.Map(document.getElementById('map'), {
         center: { lat: _lat, lng: _lng },
-        scrollwheel: false,
+        scrollwheel: true,
         zoom: 15
 
     });
-
+    console.log(map);
+    var myLatLng = { lat: _lat, lng: _lng };
     var marker = new google.maps.Marker({
         map: map,
         position: myLatLng,

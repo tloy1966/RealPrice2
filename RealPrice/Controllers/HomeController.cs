@@ -217,7 +217,7 @@ namespace RealPrice.Controllers
         public IActionResult GetData2(string location)
         {
             var rt = _context.MainData.Where(w =>w.SellType == "A" && w.Pbuild == "住家用"
-            && (w.Sdate.Value.Year >= 2015 && w.Sdate.Value.Year <= DateTime.Now.Year)
+            && (w.Sdate.Value.Year >= 2010 && w.Sdate.Value.Year <= DateTime.Now.Year)
             && w.Location == location
             && w.IsActive == true && w.Fdate.Value.Year >= 1960
             && w.Buitype != "店面(店鋪)" && w.Buitype != "其他" && w.Buitype != "辦工商業大樓"

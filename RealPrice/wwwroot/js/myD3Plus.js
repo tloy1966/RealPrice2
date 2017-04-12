@@ -219,44 +219,16 @@ function HCLocation(_data)
 function HCHistory(url,location)
 {
     $.get(url, function (data) {
-        var x = []; //Category
+        var x = []; 
         var yTprice = [];
         var yLanda = [];
-        var yAge = [];
-        var ySBuild = [];
-        var yBuitype = [];
-        var yBuildR = [];
-        var yBuildL = [];
-        var yParktype = [];
-        var yRmnote = [];
         console.log('HCLocation');
         console.log(data);
         $.each(data, function (i, item) {
             x.push(item.sdate.substring(0, 10));
             yTprice.push(Math.round(item.tprice / 100) / 100);
             yLanda.push(item.landa);
-            yAge.push(item.houseage);
-            yBuitype.push(item.buitype);
-            yBuildR.push(item.buildR);
-            yBuildL.push(item.buildL);
-            if (item.sbuild == null) {
-                ySBuild.push('N');
-            }
-            else {
-                ySBuild.push(item.sbuild);
-            }
-            if (item.parktype == null) {
-                yParktype.push('N');
-            }
-            else {
-                yParktype.push(item.parktype);
-            }
-            if (item.rmnote == null) {
-                yRmnote.push('N');
-            }
-            else {
-                yRmnote.push(item.rmnote);
-            }
+           
         });
         var yTpriceMin = Math.min(...yTprice);
         if (yTpriceMin > 10) {
@@ -278,7 +250,7 @@ function HCHistory(url,location)
             }],
             yAxis: [{ // Primary yAxis for uprice
                 labels: {
-                    format: '{value}°萬元',
+                    format: '{value}萬元',
                     style: {
                         color: Highcharts.getOptions().colors[0]
                     }
@@ -309,7 +281,7 @@ function HCHistory(url,location)
             }],
             tooltip: {
                 formatter: function () {
-                    return '總價:' + yTprice[this.points[0].point.x] + '萬, 房齡:' + yAge[this.points[0].point.x] + ',<br>'+yLanda[this.points[0].point.x]+'坪, ' + yBuildR[this.points[0].point.x] + '房' + yBuildL[this.points[0].point.x] + '廳, 層數:' + ySBuild[this.points[0].point.x] + ', <br>車位:' + yParktype[this.points[0].point.x] + ', 其他:' + yRmnote[this.points[0].point.x];
+                    return '總價:' + Math.round(data[this.points[0].point.x].tprice / 100) / 100 + '萬, 房齡:' + data[this.points[0].point.x].houseage + ',<br>' + data[this.points[0].point.x].landa + '坪, ' + data[this.points[0].point.x].buildR + '房' + data[this.points[0].point.x].buildL + '廳, 層數:' + data[this.points[0].point.x].sbuild + ', <br>車位:' + (data[this.points[0].point.x].parktype === null ? 'N' : data[this.points[0].point.x].parktype) + ', 其他:' + (data[this.points[0].point.x].rmnote === null ? 'N' : data[this.points[0].point.x].rmnote);
                 },
                 //pointFormat: '{series.name} : <b>{point.y}</b><br/>'+''+'<br/>',
                 shared: true
@@ -369,8 +341,6 @@ function HCHistory(url,location)
                 },
                 events: {
                     click: function (event) {
-                        /*console.log(event.point.x);
-                        console.log(event.point.y);*/
                     }
                 }
             }]
@@ -379,26 +349,4 @@ function HCHistory(url,location)
     
 }
 
-function d3History(url)
-{
-    $.get(url, function (data2,dp) {
-        console.log(data2);
-        $.each(data2, function (i, item) {
-            item.sdate = item.sdate.substring(0, 10);
-        })
-        vizHistory.data(data2)
-        .type("bar")
-        .id("sdate")
-        .title("地址:" + dp.location + " 歷史交易單價(萬元/坪)")
-        .x("sdate").y("uprice")
-        .order({ "value": "sdate", "sort": "asc" })
-        .color("uprice")
-        .draw();
-    });
-}
 
-
-function RealPrice(City)
-{
-    this.City = City
-}
