@@ -49,15 +49,13 @@ function drawTreeMap2(data) {
         .aggs({ "landa": "mean" })
         .mouse({
             "over": function (dp, tdiv) {
+                var _buitype = dp.buitype;
                 if (dp.d3plus.depth === 1) {
                     var tmpData = $.grep(data, function (n, i) {
                         return (n.district === dp.district && n.buitype === dp.buitype)
                     });
-
                     _tData = tmpData;
-                    //var tmpData = alasql("select district,location,AVG(uprice) as uprice, AVG(tprice) as tprice, AVG(houseage) as houseage, AVG(landa) as landa,COUNT(*) as countNum from ? group by district,location order by tprice desc", [tmpData]);
-
-                    HCLocation(tmpData);
+                    HCLocation(tmpData, _buitype);
 
                     //http://stackoverflow.com/questions/25896553/yaxis-categories-on-scatter-plot
                     //http://jsfiddle.net/2Wr8v/1/
@@ -67,8 +65,9 @@ function drawTreeMap2(data) {
         .draw();
 }
 
-function HCLocation(_data)
+function HCLocation(_data, _buitype)
 {
+
     var filterData = alasql("select * from ? order by tprice desc", [_data]);
     console.log('Chart Location');
     console.log(_data);
@@ -200,10 +199,9 @@ function HCLocation(_data)
                     console.log(x[event.point.x]);
                     console.log(event.point.y);
                     var tempLocation = x[event.point.x];
-
-                    console.log(url);
+                    
                     GetGeo(tempLocation);
-                    var url = 'Home/GetData2?location=' + tempLocation;
+                    var url = 'Home/GetData2?location=' + tempLocation + '&buitype=' + _buitype;
                     console.log(url);
                     //d3History(url,dp);
                     HCHistory(url, tempLocation);
