@@ -15,7 +15,7 @@ namespace RealPrice.Controllers
         static IQueryable<Models.MainData> _dataAll;
         private IMemoryCache _cache;
         static private readonly string apiKey = "AIzaSyA4pcY_w63SDnIUwlLf7kdmUCAdbiwN2EQ";
-        static private readonly string testKey = "AIzaSyBlEnOEgknWMReRy_XAKq2ars1I0zhEuc8";
+        static private readonly string mrtKey = "AIzaSyD7QfARKeZFYosWmrMOSDueBK-ffqrCj-M";
         static private readonly int sdate = 2010;
         public HomeController(Models.RealPriceContext context, IMemoryCache memoryCache)
         {
@@ -256,20 +256,57 @@ namespace RealPrice.Controllers
             }
 
         }
-        public  string getPlaceID(string location, string type)
+
+        #region Geo part
+        private Models.Geo getBaseGeo(string location)
+        {
+            var url = $"https://maps.googleapis.com/maps/api/geocode/json?address={location}&key=AIzaSyBlEnOEgknWMReRy_XAKq2ars1I0zhEuc8";
+            if (string.IsNullOrEmpty(location))
+            {
+                return new Models.Geo(); 
+            }
+            string jsonResult = "";
+            using (WebClient wc = new WebClient())
+            {
+                jsonResult = wc.DownloadString(url);
+            }
+            dynamic j = JsonConvert.DeserializeObject(jsonResult);
+            Models.Geo _geo = new Models.Geo();
+            _geo.lat = j.results[0].geometry.location.lat.Value;
+            _geo.lng = j.results[0].geometry.location.lng.Value;
+            return _geo;//nearby mrt place id
+        }
+        private string getNearByPlaceID(Models.Geo geo, string type)
         {
             if (string.IsNullOrEmpty(type))
             {
                 type = "subway_station";
             }
+            
             string jsonResult = "";
             using (WebClient wc = new WebClient())
             {
-                string _url = $"https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=25.173214,121.4406446&radius=1000&type={type}&key={testKey}";
+                string _url = $"https://maps.googleapis.com/maps/api/place/nearbysearch/json?location={geo.lat},{geo.lng}&radius=1000&type={type}&key={mrtKey}";
                 jsonResult = wc.DownloadString(_url);
             }
             dynamic j = JsonConvert.DeserializeObject(jsonResult);
             return j.results[0].place_id;//nearby mrt place id
+        }
+        
+
+        public int getDistance(string location)
+        {
+            var geo = getBaseGeo(location);
+            var place_id = getNearByPlaceID(geo, "");
+            string jsonResult;
+            using (WebClient wc = new WebClient())
+            {
+                string _url = $"https://maps.googleapis.com/maps/api/distancematrix/json?origins={location}&destinations=place_id:{place_id}&key={mrtKey}";
+
+                jsonResult = wc.DownloadString(_url);
+            }
+            dynamic j = JsonConvert.DeserializeObject(jsonResult);
+            return j.rows[0].elements[0].distance.value;//return json format of duration and distance
         }
 
         private Models.Geo parseGeo(string jStr)
@@ -290,20 +327,6 @@ namespace RealPrice.Controllers
             }
             return _geo;
         }
-
-        public float getDistance(string place_id, string origins)
-        {
-            float _dis = 0;
-            string jsonResult;
-            using (WebClient wc = new WebClient())
-            {
-                string _url = $"https://maps.googleapis.com/maps/api/distancematrix/json?origins={origins}&destinations=place_id:{place_id}&key={testKey}";
-
-                jsonResult = wc.DownloadString(_url);
-            }
-            dynamic j = JsonConvert.DeserializeObject(jsonResult);
-
-            return int.Parse(j.rows.elements.distance.value);//return json format of duration and distance
-        }
+        #endregion
     }
 }
