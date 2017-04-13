@@ -162,9 +162,13 @@ function HCLocation(_data, _buitype)
             },
             events: {
                 click: function (event) {
+                    console.log(x[event.point.x]);
+                    console.log(event.point.y);
                     var tempLocation = x[event.point.x];
+
                     GetGeo(tempLocation);
-                    var url = 'home/GetData2?location=' + tempLocation;
+                    var url = 'Home/GetData2?location=' + tempLocation + '&buitype=' + _buitype;
+                    console.log(url);
                     //d3History(url,dp);
                     HCHistory(url, tempLocation);
                 }

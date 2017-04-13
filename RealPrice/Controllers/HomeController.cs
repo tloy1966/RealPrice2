@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using System.Data;
 using Microsoft.Extensions.Caching.Memory;
+using System.Net.Http;
 using System.Net;
 using Newtonsoft.Json;
 namespace RealPrice.Controllers
@@ -16,7 +17,7 @@ namespace RealPrice.Controllers
         private IMemoryCache _cache;
         static private readonly string apiKey = "AIzaSyA4pcY_w63SDnIUwlLf7kdmUCAdbiwN2EQ";
         static private readonly string mrtKey = "AIzaSyD7QfARKeZFYosWmrMOSDueBK-ffqrCj-M";
-        static private readonly int sdate = 2010;
+        static private readonly int sdate = 1990;
         public HomeController(Models.RealPriceContext context, IMemoryCache memoryCache)
         {
             _context = context;
@@ -88,7 +89,8 @@ namespace RealPrice.Controllers
             }
                 
             tempData = tempData.Where(w => w.SellType == "A" && w.Pbuild == "住家用"
-            && (w.Sdate.Value.Year >= sdate && w.Sdate.Value.Year<=DateTime.Now.Year) && w.IsActive == true && w.Fdate.Value.Year >= 1960
+            && (w.Sdate.Value.Year >=sdate && w.Sdate.Value.Year<=DateTime.Now.Year) 
+            && w.IsActive == true && w.Fdate.Value.Year >= 1960
             && w.Buitype != "店面(店鋪)" && w.Buitype != "其他" && w.Buitype != "辦工商業大樓"
             && w.Buitype != "辦公商業大樓" && w.Buitype != "透天厝"
             && w.Tprice <= 36000000 &&w.Uprice != null);
@@ -155,13 +157,11 @@ namespace RealPrice.Controllers
         public IActionResult GetData2(string location,string buitype)
         {
             var rt = _context.MainData.Where(w =>w.SellType == "A" && w.Pbuild == "住家用"
-            && (w.Sdate.Value.Year >= sdate && w.Sdate.Value.Year <= DateTime.Now.Year)
+            && (w.Sdate.Value.Year >=sdate && w.Sdate.Value.Year <= DateTime.Now.Year)
             && w.Location == location
             && w.Buitype == buitype
             && w.IsActive == true && w.Fdate.Value.Year >= 1960
-            && w.Buitype != "店面(店鋪)" && w.Buitype != "其他" && w.Buitype != "辦工商業大樓"
-            && w.Buitype != "辦公商業大樓" && w.Buitype != "透天厝"
-            && w.Tprice <= 36000000
+            && w.Tprice <= 36000000 && w.Uprice != null
             ).OrderBy(o => o.Sdate);
             var r = rt
                 .Select(s => new {
@@ -293,17 +293,23 @@ namespace RealPrice.Controllers
             return j.results[0].place_id;//nearby mrt place id
         }
         
-
-        public int getDistance(string location)
+        public int getDistanceFromMRT(string location)
         {
             var geo = getBaseGeo(location);
             var place_id = getNearByPlaceID(geo, "");
             string jsonResult;
-            using (WebClient wc = new WebClient())
+            string _url = $"https://maps.googleapis.com/maps/api/distancematrix/json?origins={location}&destinations=place_id:{place_id}&key={mrtKey}";
+            try
             {
-                string _url = $"https://maps.googleapis.com/maps/api/distancematrix/json?origins={location}&destinations=place_id:{place_id}&key={mrtKey}";
-
-                jsonResult = wc.DownloadString(_url);
+                using (WebClient wc = new WebClient())
+                {
+                    jsonResult = wc.DownloadString(_url);
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+                return 0;
             }
             dynamic j = JsonConvert.DeserializeObject(jsonResult);
             return j.rows[0].elements[0].distance.value;//return json format of duration and distance

@@ -37,7 +37,6 @@ function GoMap(_lat, _lng, _address) {
         zoom: 15
 
     });
-    console.log(map);
     var myLatLng = { lat: _lat, lng: _lng };
     var marker = new google.maps.Marker({
         map: map,
