@@ -46,11 +46,14 @@
                     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                         <form class="navbar-form navbar-left">
                             <div class="form-group">
-                                <button id="btnByTprice" type="button" class="btn btn-default" onclick="orderDataDesc('tprice')">總價</button>
-                                <button id="btnByLocation" type="button" class="btn btn-default" onclick="orderDataDesc('uprice')">每坪價格</button>
-                                <button id="btnByLocation" type="button" class="btn btn-default" onclick="orderDataDesc('houseage')">房齡</button>
-                                <button id="btnByLocation" type="button" class="btn btn-default" onclick="orderDataDesc('location')">地點</button>
+                                <button id="btnByTprice" type="button" class="btn btn-default" onclick="filterData('tprice',true)">總價</button>
+                                <button id="btnByLocation" type="button" class="btn btn-default" onclick="filterData('landa',true)">坪數</button>
+                                <button id="btnByLocation" type="button" class="btn btn-default" onclick="filterData('houseage',true)">房齡</button>
+                                <button id="btnByLocation" type="button" class="btn btn-default" onclick="filterData('location',true)">地點</button>
                             </div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            <input id="inputLocation" type="text" class="form-control" placeholder="路名">
+                            <button id="btnCSearchLoc" type="button" class="btn btn-default" onclick="filterData('',true)">搜尋</button>
+                            <button id="btnClearLoc" type="button" class="btn btn-default" onclick="filterData('',false)">取消</button>
                         </form>
 
                     </div><!-- /.navbar-collapse -->
