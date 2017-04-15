@@ -12,15 +12,13 @@ $.get('home/CachedData', function (data) {
 });
 function SelectCity(City)
 {
-    if (City == 0) {
-        console.log("show mrt");
+    if (City === 0) {
         isMRT = true;
     }
     else
     {
         isMRT = false;
     }
-    console.log('home/CachedData?City=' + City);
     $.get('home/CachedData?City=' + City, function (data) {
         console.log('Lets Go');
         drawTreeMap2(data);
@@ -138,7 +136,11 @@ function HCLocation(filterData)
             opposite: true
         }], tooltip: {
             formatter: function () {
-                return '總價:' + yTprice[this.points[0].point.x] + '萬, 房齡:' + yAge[this.points[0].point.x] + ', <br> 坪數: ' + yLanda[this.points[0].point.x] + '<br>2016交易數量: ' + yCountNum[this.points[0].point.x];
+                return '總價:' + yTprice[this.points[0].point.x] + '萬, 房齡:'
+                    + yAge[this.points[0].point.x] + ', <br> 坪數: '
+                    + yLanda[this.points[0].point.x] + '<br>2016交易數量: '
+                    + yCountNum[this.points[0].point.x] + '<br>地點:'
+                    + filterData[this.points[0].point.x].location;
             },
             //pointFormat: '{series.name} : <b>{point.y}</b><br/>'+''+'<br/>',
             shared: true
@@ -212,7 +214,6 @@ function HCLocation(filterData)
                     GetGeo(tempLocation);
                     var url = 'Home/GetData2?location=' + tempLocation + '&buitype=' + sBuiType;
                     console.log(url);
-                    //d3History(url,dp);
                     HCHistory(url, tempLocation);
                 }
             }
