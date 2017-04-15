@@ -1,5 +1,6 @@
 ﻿var sData = [];
 var sBuiType = '';
+var sOrdeType = '';
 var isMRT = false;
 var vizLocation = d3plus.viz().container("#vizLocation");
 var vizHistory = d3plus.viz().container("#vizHistory");
@@ -51,7 +52,7 @@ function drawTreeMap2(data) {
                     });
                     sData = tmpData;
                     sBuiType = dp.buitype;
-                    orderDataDesc('')
+                    filterData('')
                     //http://stackoverflow.com/questions/25896553/yaxis-categories-on-scatter-plot
                     //http://jsfiddle.net/2Wr8v/1/
                 }
@@ -60,14 +61,28 @@ function drawTreeMap2(data) {
         .draw();
 }
 
-function orderDataDesc(orderType)
+function filterData(orderType, byLocation)
 {
-    console.log(orderType);
-    if (orderType === '')
-    {
+    var tmpData = [];
+    var tmpLocation = $('#inputLocation').val();
+    var condition1 = '';
+    if (orderType === '' && sOrdeType == '') {
+        sOrdeType = orderType;
         orderType = 'tprice';
     }
-    var tmpData = alasql("select * from ? order by " + orderType + " desc", [sData]);
+    else if (orderType === '' && sOrdeType != '') {
+        orderType = sOrdeType;
+    }
+    if (byLocation && tmpLocation !='') {
+        condition1 = " where location like '%" + tmpLocation + "%'";
+    }
+    else
+    {
+        $('#inputLocation').val('');
+        condition1 = '';
+    }
+    console.log("select * from ? " + condition1 + " order by " + orderType + " desc");
+    tmpData = alasql("select * from ? "+condition1+" order by " + orderType + " desc", [sData]);
 
     HCLocation(tmpData);
 }
@@ -354,15 +369,5 @@ function HCHistory(url,location)
     
 }
 
-function clearLocation()
-{
-    $('#inputLocation').val('');
-    //clear tinput and rebinding
-
-}
-function searchLocation()
-{
-    var location = $('#inputLocation').val();
-}
 
 
