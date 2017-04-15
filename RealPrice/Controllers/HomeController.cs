@@ -5,7 +5,6 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using System.Data;
 using Microsoft.Extensions.Caching.Memory;
-using System.Net.Http;
 using System.Net;
 using Newtonsoft.Json;
 namespace RealPrice.Controllers
@@ -16,7 +15,8 @@ namespace RealPrice.Controllers
         static IQueryable<Models.MainData> _dataAll;
         private IMemoryCache _cache;
         static private readonly string apiKey = "AIzaSyA4pcY_w63SDnIUwlLf7kdmUCAdbiwN2EQ";
-        static private readonly string mrtKey = "AIzaSyD7QfARKeZFYosWmrMOSDueBK-ffqrCj-M";
+        static private readonly string mrtKey = "AIzaSyD7QfA" +
+            "RKeZFYosWmrMOSDueBK-ffqrCj-M";
         static private readonly int sdate = 1990;
         public HomeController(Models.RealPriceContext context, IMemoryCache memoryCache)
         {
@@ -189,7 +189,6 @@ namespace RealPrice.Controllers
             //pricing   (farea) * uprice + pprice * parea calTotal2,
             //var r3 = _dataAll.Where(w=>w.Location == location && w.Sdate !=null).OrderBy(o=>o.Sdate);
             return Json(r);
-
         }
         #endregion
         

@@ -28,10 +28,8 @@
                 <button id="btnCity3" type="button" class="btn btn-default" onclick="SelectCity(3)">新竹</button>
                 <button id="btnCity4" type="button" class="btn btn-default" onclick="SelectCity(4)">桃園</button>
                 <button id="btnCity" type="button" class="btn btn-default">請點選下圖!!!</button>
-                <p style="font-size:large"></p>
             </div>
         </div>
-        
     </div>
 
     <div class="panel-body">
@@ -40,9 +38,10 @@
         </div>
         <br />
         <div class="row">
-            <input type="button" class="btn btn-primary" value="Show location"
-                   data-toggle="collapse" data-target="#vizLocation"
-                   aria-expanded="false" aria-controls="vizLocation">
+            <div class="btn btn-group" role="group" aria-label="...">
+                <button id="btnByTprice" type="button" class="btn btn-default" onclick="orderDataDesc('tprice')">總價</button>
+                <button id="btnByLocation" type="button" class="btn btn-default" onclick="orderDataDesc('location')">地點</button>
+            </div>
         </div>
         <div class="row">
             <div id="vizHCLocation" class="col-md-12" style="min-height:300px"></div>

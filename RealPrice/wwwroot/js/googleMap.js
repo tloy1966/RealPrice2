@@ -2,7 +2,6 @@
 var _lat = 0;
 var _lng = 0;
 function GetGeo(address) {
-    //var address = $("#Text1").val();
     var url = 'https://maps.googleapis.com/maps/api/geocode/json?address=' + address + '&key=AIzaSyBlEnOEgknWMReRy_XAKq2ars1I0zhEuc8';
     $.getJSON(url, function (data) {
         console.log('GetJson');
@@ -18,7 +17,6 @@ function GetGeo(address) {
             console.log('no result');
         }
     });
-
 }
 
 function initMap() {
@@ -27,7 +25,6 @@ function initMap() {
         scrollwheel: false,
         zoom: 15
     });
-
 }
 
 function GoMap(_lat, _lng, _address) {
@@ -35,7 +32,6 @@ function GoMap(_lat, _lng, _address) {
         center: { lat: _lat, lng: _lng },
         scrollwheel: true,
         zoom: 15
-
     });
     var myLatLng = { lat: _lat, lng: _lng };
     var marker = new google.maps.Marker({
@@ -43,10 +39,7 @@ function GoMap(_lat, _lng, _address) {
         position: myLatLng,
         title: _address
     });
-
 };
-
-
 
 var geocoder;
 function initialize() {

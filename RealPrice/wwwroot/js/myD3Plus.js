@@ -1,12 +1,11 @@
-﻿var _tData = [];
+﻿var sData = [];
+var sBuiType = '';
 var isMRT = false;
-var vizLocation = d3plus.viz()
-            .container("#vizLocation");
-var vizHistory = d3plus.viz()
-            .container("#vizHistory");
-var vizTreeMap = d3plus.viz()
-    .container("#vizTreeMap");
+var vizLocation = d3plus.viz().container("#vizLocation");
+var vizHistory = d3plus.viz().container("#vizHistory");
+var vizTreeMap = d3plus.viz().container("#vizTreeMap");
 //https://jsfiddle.net/q7Ss6/
+
 $.get('home/CachedData', function (data) {
     console.log('start');
     drawTreeMap2(data);
@@ -23,9 +22,8 @@ function SelectCity(City)
     }
     console.log('home/CachedData?City=' + City);
     $.get('home/CachedData?City=' + City, function (data) {
-        console.log('GotData!');
+        console.log('Lets Go');
         drawTreeMap2(data);
-        console.log(data);
     });
 }
 function drawTreeMap2(data) {
@@ -49,14 +47,13 @@ function drawTreeMap2(data) {
         .aggs({ "landa": "mean" })
         .mouse({
             "over": function (dp, tdiv) {
-                var _buitype = dp.buitype;
                 if (dp.d3plus.depth === 1) {
                     var tmpData = $.grep(data, function (n, i) {
                         return (n.district === dp.district && n.buitype === dp.buitype)
                     });
-                    _tData = tmpData;
-                    HCLocation(tmpData, _buitype);
-
+                    sData = tmpData;
+                    sBuiType = dp.buitype;
+                    orderDataDesc('')
                     //http://stackoverflow.com/questions/25896553/yaxis-categories-on-scatter-plot
                     //http://jsfiddle.net/2Wr8v/1/
                 }
@@ -65,12 +62,20 @@ function drawTreeMap2(data) {
         .draw();
 }
 
-function HCLocation(_data, _buitype)
+function orderDataDesc(orderType)
 {
+    console.log(orderType);
+    if (orderType === '')
+    {
+        orderType = 'tprice';
+    }
+    var tmpData = alasql("select * from ? order by " + orderType + " desc", [sData]);
 
-    var filterData = alasql("select * from ? order by tprice desc", [_data]);
-    console.log('Chart Location');
-    console.log(_data);
+    HCLocation(tmpData);
+}
+
+function HCLocation(filterData)
+{
     var x = []; //Category
     var yTprice = [];
     var yLanda = [];
@@ -167,7 +172,7 @@ function HCLocation(_data, _buitype)
                     var tempLocation = x[event.point.x];
 
                     GetGeo(tempLocation);
-                    var url = 'Home/GetData2?location=' + tempLocation + '&buitype=' + _buitype;
+                    var url = 'Home/GetData2?location=' + tempLocation + '&buitype=' + sBuiType;
                     console.log(url);
                     //d3History(url,dp);
                     HCHistory(url, tempLocation);
@@ -205,7 +210,7 @@ function HCLocation(_data, _buitype)
                     var tempLocation = x[event.point.x];
                     
                     GetGeo(tempLocation);
-                    var url = 'Home/GetData2?location=' + tempLocation + '&buitype=' + _buitype;
+                    var url = 'Home/GetData2?location=' + tempLocation + '&buitype=' + sBuiType;
                     console.log(url);
                     //d3History(url,dp);
                     HCHistory(url, tempLocation);
@@ -213,9 +218,6 @@ function HCLocation(_data, _buitype)
             }
         }]
     });
-
-
-    
 }
 
 function HCHistory(url,location)
