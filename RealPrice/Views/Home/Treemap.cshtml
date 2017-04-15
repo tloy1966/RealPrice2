@@ -38,13 +38,26 @@
         </div>
         <br />
         <div class="row">
-            <div class="btn btn-group" role="group" aria-label="...">
-                <button id="btnCity" type="button" class="btn btn-default">排序!</button>
-                <button id="btnByTprice" type="button" class="btn btn-default" onclick="orderDataDesc('tprice')">總價</button>
-                <button id="btnByLocation" type="button" class="btn btn-default" onclick="orderDataDesc('uprice')">每坪價格</button>
-                <button id="btnByLocation" type="button" class="btn btn-default" onclick="orderDataDesc('houseage')">房齡</button>
-                <button id="btnByLocation" type="button" class="btn btn-default" onclick="orderDataDesc('location')">地點</button>
-            </div>
+            <nav class="navbar navbar-default">
+                <div class="container-fluid">
+                    <div class="navbar-header">
+                        <a class="navbar-brand" href="#">排序!</a>
+                    </div>
+                    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                        <form class="navbar-form navbar-left">
+                            <div class="form-group">
+                                <button id="btnByTprice" type="button" class="btn btn-default" onclick="orderDataDesc('tprice')">總價</button>
+                                <button id="btnByLocation" type="button" class="btn btn-default" onclick="orderDataDesc('uprice')">每坪價格</button>
+                                <button id="btnByLocation" type="button" class="btn btn-default" onclick="orderDataDesc('houseage')">房齡</button>
+                                <button id="btnByLocation" type="button" class="btn btn-default" onclick="orderDataDesc('location')">地點</button>
+                            </div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        </form>
+
+                    </div><!-- /.navbar-collapse -->
+                </div><!-- /.container-fluid -->
+            </nav>
+
+
         </div>
         <div class="row">
             <div id="vizHCLocation" class="col-md-12" style="min-height:300px"></div>

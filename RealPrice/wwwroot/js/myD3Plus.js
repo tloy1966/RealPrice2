@@ -354,4 +354,15 @@ function HCHistory(url,location)
     
 }
 
+function clearLocation()
+{
+    $('#inputLocation').val('');
+    //clear tinput and rebinding
+
+}
+function searchLocation()
+{
+    var location = $('#inputLocation').val();
+}
+
 
