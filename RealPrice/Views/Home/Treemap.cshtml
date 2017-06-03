@@ -22,12 +22,12 @@
     <div class="panel-heading">
         <div class="row">
             <div class="btn btn-group" role="group" aria-label="...">
+                <button id="btnCity" type="button" class="btn btn-info">請點選下圖!!!</button>
                 <button id="btnCity0" type="button" class="btn btn-default" onclick="SelectCity(0)">台北 新北</button>
                 <button id="btnCity1" type="button" class="btn btn-default" onclick="SelectCity(1)">台中</button>
                 <button id="btnCity2" type="button" class="btn btn-default" onclick="SelectCity(2)">高雄</button>
                 <button id="btnCity3" type="button" class="btn btn-default" onclick="SelectCity(3)">新竹</button>
                 <button id="btnCity4" type="button" class="btn btn-default" onclick="SelectCity(4)">桃園</button>
-                <button id="btnCity" type="button" class="btn btn-default">請點選下圖!!!</button>
             </div>
         </div>
     </div>
@@ -38,30 +38,26 @@
         </div>
         <br />
         <div class="row">
-            <nav class="navbar navbar-default">
-                <div class="container-fluid">
-                    <div class="navbar-header">
-                        <a class="navbar-brand" href="#">排序!</a>
+            <div class="col-md-6">
+                <div class="input-group">
+                    <div class="col-sm-7">
+                        <span class="input-group-btn">
+                            <button class="btn btn-default" type="button" onclick="filterData('tprice',true)">總價</button>
+                            <button class="btn btn-default" type="button" onclick="filterData('landa',true)">坪數</button>
+                            <button class="btn btn-default" type="button" onclick="filterData('houseage',true)">房齡</button>
+                            <button class="btn btn-default" type="button" onclick="filterData('location',true)">地點</button>
+                            <button class="btn btn-default" type="button" onclick="filterData('countNum',true)">交易數量</button>
+                        </span>
                     </div>
-                    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-                        <form class="navbar-form navbar-left">
-                            <div class="form-group">
-                                <button id="btnByTprice" type="button" class="btn btn-default" onclick="filterData('tprice',true)">總價</button>
-                                <button id="btnByLocation" type="button" class="btn btn-default" onclick="filterData('landa',true)">坪數</button>
-                                <button id="btnByLocation" type="button" class="btn btn-default" onclick="filterData('houseage',true)">房齡</button>
-                                <button id="btnByLocation" type="button" class="btn btn-default" onclick="filterData('location',true)">地點</button>
-                            </div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                            <input id="inputLocation" type="text" class="form-control" placeholder="路名">
-                            <button id="btnCSearchLoc" type="button" class="btn btn-default" onclick="filterData('',true)">搜尋</button>
-                            <button id="btnClearLoc" type="button" class="btn btn-default" onclick="filterData('',false)">取消</button>
-                        </form>
-
-                    </div><!-- /.navbar-collapse -->
-                </div><!-- /.container-fluid -->
-            </nav>
-
-
+                    <div class="col-sm-4">
+                        <input id="inputLocation" type="text" class="form-control" placeholder="過濾路名">
+                    </div>
+                    
+                    
+                </div>
+            </div>
         </div>
+
         <div class="row">
             <div id="vizHCLocation" class="col-md-12" style="min-height:300px"></div>
         </div>

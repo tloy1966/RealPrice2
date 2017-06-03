@@ -82,8 +82,8 @@ function filterData(orderType, byLocation)
         condition1 = '';
     }
     console.log("select * from ? " + condition1 + " order by " + orderType + " desc");
-    tmpData = alasql("select * from ? "+condition1+" order by " + orderType + " desc", [sData]);
-
+    tmpData = alasql("select * from ? " + condition1 + " order by " + orderType + " desc", [sData]);
+    console.log(tmpData);
     HCLocation(tmpData);
 }
 
@@ -151,10 +151,10 @@ function HCLocation(filterData)
             opposite: true
         }], tooltip: {
             formatter: function () {
-                return '總價:' + yTprice[this.points[0].point.x] + '萬, 房齡:'
+                return '總價:' + yTprice[this.points[0].point.x] + '萬, 房齡: '
                     + yAge[this.points[0].point.x] + ', <br> 坪數: '
-                    + yLanda[this.points[0].point.x] + '<br>2016交易數量: '
-                    + yCountNum[this.points[0].point.x] + '<br>地點:'
+                    + yLanda[this.points[0].point.x] + '<br>交易數量: '
+                    + yCountNum[this.points[0].point.x] + '<br>地點: '
                     + filterData[this.points[0].point.x].location;
             },
             //pointFormat: '{series.name} : <b>{point.y}</b><br/>'+''+'<br/>',
