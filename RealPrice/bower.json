@@ -8,7 +8,8 @@
     "jquery-validation-unobtrusive": "3.2.6",
     "d3": "v4.7.4",
     "d3plus": "v1.9.8",
-    "highcharts": "v5.0.9"
+    "highcharts": "v5.0.9",
+    "angular": "v1.6.5-build.5390+sha.a86a319"
   },
   "resolutions": {
     "d3": "v4.7.4"
