@@ -12,6 +12,7 @@
     <Content Include="wwwroot\js\alasql.min.js" />
     <Content Include="wwwroot\js\ga.js" />
     <Content Include="wwwroot\js\googleMap.js" />
+    <Content Include="wwwroot\js\Heatmap.js" />
     <Content Include="wwwroot\js\highcharts.js" />
     <Content Include="wwwroot\js\highstock.js" />
     <Content Include="wwwroot\js\myD3Plus.js" />

@@ -45,6 +45,17 @@ namespace RealPrice.Controllers
         {
             return View();
         }
+
+        public IActionResult forecast()
+        {
+            return View();
+        }
+
+        public IActionResult Heatmap()
+        {
+            return View();
+        }
+
         public IActionResult Error()
         {
             return View();

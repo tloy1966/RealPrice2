@@ -1,0 +1,40 @@
+﻿@{
+    ViewData["Title"] = "大數據房價分析!";
+}
+<link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />
+<link rel="stylesheet" href="~/css/loading.css" />
+<h3>@ViewData["Message"]</h3>
+<h1>test</h1>
+
+<div class="panel panel-default">
+    <div class="panel-heading">
+
+        <p style="font-size:large">淡水區</p>
+    </div>
+
+    <div class="panel-body">
+        <div class="row">
+            <div class="col-md-12">
+                <div id="map" class="col-md-12" style="min-height:620px"></div>
+            </div>
+
+        </div>
+    </div>
+
+</div>
+
+<script src="~/lib/jquery/dist/jquery.js"></script>
+
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+<script src="~/lib/d3/d3.js"></script>
+<script src="~/lib/d3plus/d3plus.full.js"></script>
+<script src="~/js/alasql.min.js"></script>
+<script type="text/javascript"
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD7QfARKeZFYosWmrMOSDueBK-ffqrCj-M&libraries=visualization">
+</script>
+<script type="text/javascript" src="~/js/Heapmap.js"></script>
+<script src="http://code.highcharts.com/highcharts.js"></script>
+<script src="~/js/ga.js"></script>
+<script src="~/js/googleMap.js"></script>
+
+
