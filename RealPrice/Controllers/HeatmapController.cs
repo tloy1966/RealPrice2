@@ -23,7 +23,14 @@ namespace RealPrice.Controllers
         [HttpGet]
         public JsonResult Get()
         {
-            return Json(_context.Location.Take(10));
+            var sum = _context.Location.Select(s => s.Avg).Sum();
+            var data = _context.Location.Where(w=>w.Avg>0 && w.Lon>0 && w.Lat>0).Select(s => new {
+                lat = s.Lat,
+                lon = s.Lon,
+                avg = s.Avg
+            });
+                
+            return Json(data);
         }
 
         // GET: api/Heatmap/5
