@@ -294,6 +294,7 @@ namespace RealPrice.Controllers
             using (WebClient wc = new WebClient())
             {
                 
+                string _url = $"https://maps.googleapis.com/maps/api/place/nearbysearch/json?location={geo.lat},{geo.lng}&radius=1000&type={type}&key={Authority.KeyUtility.GMapMrtKey}";
                 jsonResult = wc.DownloadString(_url);
             }
             dynamic j = JsonConvert.DeserializeObject(jsonResult);
@@ -305,6 +306,7 @@ namespace RealPrice.Controllers
             var geo = getBaseGeo(location);
             var place_id = getNearByPlaceID(geo, "");
             string jsonResult;
+            string _url = $"https://maps.googleapis.com/maps/api/distancematrix/json?origins={location}&destinations=place_id:{place_id}&key={Authority.KeyUtility.GMapMrtKey}";
             try
             {
                 using (WebClient wc = new WebClient())
