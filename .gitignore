@@ -260,3 +260,6 @@ paket-files/
 __pycache__/
 *.pyc
 RealPrice/Authoity/DB.cs
+RealPrice/Authority/DB.cs
+RealPrice/Authority/KeyUtility.cs
+RealPrice/Properties/PublishProfiles/VisualPrice - Web Deploy.pubxml

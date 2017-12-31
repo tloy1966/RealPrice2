@@ -14,9 +14,6 @@ namespace RealPrice.Controllers
         private Models.RealPriceContext _context;
         static IQueryable<Models.MainData> _dataAll;
         private IMemoryCache _cache;
-        static private readonly string apiKey = "AIzaSyA4pcY_w63SDnIUwlLf7kdmUCAdbiwN2EQ";
-        static private readonly string mrtKey = "AIzaSyD7QfA" +
-            "RKeZFYosWmrMOSDueBK-ffqrCj-M";
         static private readonly int sdate = 1990;
         public HomeController(Models.RealPriceContext context, IMemoryCache memoryCache)
         {
@@ -296,7 +293,7 @@ namespace RealPrice.Controllers
             string jsonResult = "";
             using (WebClient wc = new WebClient())
             {
-                string _url = $"https://maps.googleapis.com/maps/api/place/nearbysearch/json?location={geo.lat},{geo.lng}&radius=1000&type={type}&key={mrtKey}";
+                
                 jsonResult = wc.DownloadString(_url);
             }
             dynamic j = JsonConvert.DeserializeObject(jsonResult);
@@ -308,7 +305,6 @@ namespace RealPrice.Controllers
             var geo = getBaseGeo(location);
             var place_id = getNearByPlaceID(geo, "");
             string jsonResult;
-            string _url = $"https://maps.googleapis.com/maps/api/distancematrix/json?origins={location}&destinations=place_id:{place_id}&key={mrtKey}";
             try
             {
                 using (WebClient wc = new WebClient())
