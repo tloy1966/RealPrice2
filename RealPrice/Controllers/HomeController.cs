@@ -15,6 +15,7 @@ namespace RealPrice.Controllers
         static IQueryable<Models.MainData> _dataAll;
         private IMemoryCache _cache;
         static private readonly int sdate = 1990;
+        #region pages 
         public HomeController(Models.RealPriceContext context, IMemoryCache memoryCache)
         {
             _context = context;
@@ -57,6 +58,8 @@ namespace RealPrice.Controllers
         {
             return View();
         }
+        #endregion
+
         #region
         public IActionResult Treemap()
         {

@@ -6,10 +6,11 @@ var vizLocation = d3plus.viz().container("#vizLocation");
 var vizHistory = d3plus.viz().container("#vizHistory");
 var vizTreeMap = d3plus.viz().container("#vizTreeMap");
 //https://jsfiddle.net/q7Ss6/
-
+var selectedCity = 0;
+var selectedYear = 3;
 $.get('home/CachedData', function (data) {
     console.log('start');
-    drawTreeMap2(data);
+    drawTreeMap(data);
 });
 function SelectCity(City)
 {
@@ -22,10 +23,10 @@ function SelectCity(City)
     }
     $.get('home/CachedData?City=' + City, function (data) {
         console.log('Lets Go');
-        drawTreeMap2(data);
+        drawTreeMap(data);
     });
 }
-function drawTreeMap2(data) {
+function drawTreeMap(data) {
     vizTreeMap.data(data)
         .type("tree_map")
         .id(["district", "buitype"])
@@ -66,14 +67,14 @@ function filterData(orderType, byLocation)
     var tmpData = [];
     var tmpLocation = $('#inputLocation').val();
     var condition1 = '';
-    if (orderType === '' && sOrdeType == '') {
+    if (orderType === '' && sOrdeType === '') {
         sOrdeType = orderType;
         orderType = 'tprice';
     }
-    else if (orderType === '' && sOrdeType != '') {
+    else if (orderType === '' && sOrdeType !== '') {
         orderType = sOrdeType;
     }
-    if (byLocation && tmpLocation !='') {
+    if (byLocation && tmpLocation !=='') {
         condition1 = " where location like '%" + tmpLocation + "%'";
     }
     else

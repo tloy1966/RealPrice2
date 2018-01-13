@@ -30,7 +30,7 @@ namespace RealPrice
         {
             // Add framework services.
             services.AddMvc();
-            services.AddDbContext<RealPriceContext>(options=>options.UseSqlServer(Authoity.DB.getConnect(false)));
+            services.AddDbContext<RealPriceContext>(options=>options.UseSqlServer(Authority.DB.getConnect(false)));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

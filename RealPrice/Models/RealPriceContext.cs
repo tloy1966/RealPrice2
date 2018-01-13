@@ -1,7 +1,6 @@
 ﻿using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
-using RealPrice.Authoity;
 namespace RealPrice.Models
 {
     
@@ -15,7 +14,7 @@ namespace RealPrice.Models
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlServer(Authoity.DB.getConnect(false));
+            optionsBuilder.UseSqlServer(Authority.DB.getConnect(false));
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
