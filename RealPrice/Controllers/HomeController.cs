@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using System.Data;
 using Microsoft.Extensions.Caching.Memory;
@@ -12,7 +11,6 @@ namespace RealPrice.Controllers
     public class HomeController : Controller
     {
         private Models.RealPriceContext _context;
-        static IQueryable<Models.MainData> _dataAll;
         private IMemoryCache _cache;
         static private readonly int sdate = 1990;
         #region pages 
@@ -39,12 +37,12 @@ namespace RealPrice.Controllers
 
             return View();
         }
-        public IActionResult test()
+        public IActionResult Test()
         {
             return View();
         }
 
-        public IActionResult forecast()
+        public IActionResult Forecast()
         {
             return View();
         }

@@ -49,11 +49,11 @@ function drawTreeMap(data) {
             "over": function (dp, tdiv) {
                 if (dp.d3plus.depth === 1) {
                     var tmpData = $.grep(data, function (n, i) {
-                        return (n.district === dp.district && n.buitype === dp.buitype)
+                        return (n.district === dp.district && n.buitype === dp.buitype);
                     });
                     sData = tmpData;
                     sBuiType = dp.buitype;
-                    filterData('')
+                    filterData('');
                     //http://stackoverflow.com/questions/25896553/yaxis-categories-on-scatter-plot
                     //http://jsfiddle.net/2Wr8v/1/
                 }
