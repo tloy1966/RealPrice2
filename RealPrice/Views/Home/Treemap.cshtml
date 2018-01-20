@@ -29,13 +29,6 @@
                 <button id="btnCity3" type="button" class="btn btn-default" onclick="SelectCity(3)">新竹</button>
                 <button id="btnCity4" type="button" class="btn btn-default" onclick="SelectCity(4)">桃園</button>
             </div>
-
-            <div class="btn btn-group col-lg-6" role="group" aria-label="...">
-                <button id="btnCity" type="button" class="btn btn-info">近期交易(施工中)</button>
-                <button id="btnCity0" type="button" class="btn btn-default" onclick="">近1年</button>
-                <button id="btnCity1" type="button" class="btn btn-default" onclick="">近3年</button>
-                <button id="btnCity2" type="button" class="btn btn-default" onclick="">近5年</button>
-            </div>
         </div>
     </div>
 
@@ -59,29 +52,39 @@
                     <div class="col-sm-4">
                         <input id="inputLocation" type="text" class="form-control" placeholder="過濾路名">
                     </div>
-                    
-                    
                 </div>
             </div>
-        </div>
+            <div class="col-md-6" role="group" aria-label="...">
+                <div class="input-group">
+                    <button id="btnCity" type="button" class="btn btn-info">近期交易(施工中)</button>
+                    <button id="btnCity0" type="button" class="btn btn-default" onclick="filterData('tprice',true,1)">近1年</button>
+                    <button id="btnCity1" type="button" class="btn btn-default" onclick="filterData('tprice',true,3)">近3年</button>
+                    <button id="btnCity2" type="button" class="btn btn-default" onclick="filterData('tprice',true,5)">近5年</button>
 
-        <div class="row">
-            <div id="vizHCLocation" class="col-md-12" style="min-height:300px"></div>
-        </div>
-        <br />
-
-        <div class="row">
-            <div class="col-md-6 col-sm-6">
-                <div id="vizHistory" class="col-md-12" style="min-height:220px"></div>
+                </div>
+                
             </div>
-            <div class="col-md-6 col-sm-6">
-                <div id="map" class="col-md-12" style="min-height:220px"></div>
-            </div>
+            
 
         </div>
-        <br />
 
-    </div>
+            <div class="row">
+                <div id="vizHCLocation" class="col-md-12" style="min-height:300px"></div>
+            </div>
+            <br />
+
+            <div class="row">
+                <div class="col-md-6 col-sm-6">
+                    <div id="vizHistory" class="col-md-12" style="min-height:220px"></div>
+                </div>
+                <div class="col-md-6 col-sm-6">
+                    <div id="map" class="col-md-12" style="min-height:220px"></div>
+                </div>
+
+            </div>
+            <br />
+
+        </div>
 
 </div>
 

@@ -1,13 +1,15 @@
 ﻿var sData = [];
 var sBuiType = '';
-var sOrdeType = '';
+var sOrdeType = 'tprice';
 var isMRT = false;
 var vizLocation = d3plus.viz().container("#vizLocation");
 var vizHistory = d3plus.viz().container("#vizHistory");
 var vizTreeMap = d3plus.viz().container("#vizTreeMap");
 //https://jsfiddle.net/q7Ss6/
-var selectedCity = 0;
-var selectedYear = 3;
+var filterSelectedCity = 0;
+var filterSelectDateRange = 1;
+var filterDataOrderType = 'tprice';
+var filterDatabyLocation = '';
 $.get('home/CachedData', function (data) {
     console.log('start');
     drawTreeMap(data);
@@ -75,16 +77,16 @@ function filterData(orderType, byLocation)
         orderType = sOrdeType;
     }
     if (byLocation && tmpLocation !=='') {
-        condition1 = " where location like '%" + tmpLocation + "%'";
+        condition1 = " where sdate >=" + selectDateRange + "and  location like '%" + tmpLocation + "%'";
     }
     else
     {
         $('#inputLocation').val('');
-        condition1 = '';
+        condition1 =  "where sdate >=" + selectDateRange;
     }
     console.log("select * from ? " + condition1 + " order by " + orderType + " desc");
     tmpData = alasql("select * from ? " + condition1 + " order by " + orderType + " desc", [sData]);
-    console.log(tmpData);
+    //console.log(tmpData);
     HCLocation(tmpData);
 }
 
@@ -370,5 +372,14 @@ function HCHistory(url,location)
     
 }
 
+function SetSelectDateRange(range) {
+    selectDateRange = range;
+    filterData()
+}
+function SetOrderBy(OrderBy, Location) {
+    filterDataOrderType = OrderBy;
+    filterDatabyLocation = Location;
+    filterData();
+}
 
 

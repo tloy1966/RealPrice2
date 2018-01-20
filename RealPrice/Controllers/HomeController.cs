@@ -11,7 +11,6 @@ namespace RealPrice.Controllers
         private Models.RealPriceContext _context;
         private IMemoryCache _cache;
         static private readonly int sdate = 1990;
-        private int SelectedDateRange = 1;
         #region pages 
         public HomeController(Models.RealPriceContext context, IMemoryCache memoryCache)
         {
