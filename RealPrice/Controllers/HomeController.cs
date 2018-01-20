@@ -4,8 +4,6 @@ using System.Linq;
 using Microsoft.AspNetCore.Mvc;
 using System.Data;
 using Microsoft.Extensions.Caching.Memory;
-using System.Net;
-using Newtonsoft.Json;
 namespace RealPrice.Controllers
 {
     public class HomeController : Controller
@@ -13,6 +11,7 @@ namespace RealPrice.Controllers
         private Models.RealPriceContext _context;
         private IMemoryCache _cache;
         static private readonly int sdate = 1990;
+        private int SelectedDateRange = 1;
         #region pages 
         public HomeController(Models.RealPriceContext context, IMemoryCache memoryCache)
         {
@@ -78,19 +77,19 @@ namespace RealPrice.Controllers
             var tempData = _context.MainData.AsQueryable();
             switch (City)
             {
-                case (int)Models.Paras.City.Taipei:
+                case (int)Models.Paras.SelectedCity.Taipei:
                     tempData = tempData.Where(w => (w.City == "A" || w.City == "F"));
                     break;
-                case (int)Models.Paras.City.TaiChung:
+                case (int)Models.Paras.SelectedCity.TaiChung:
                     tempData = _context.MainData.Where(w => (w.City == "B"));
                     break;
-                case (int)Models.Paras.City.KaoHsiung:
+                case (int)Models.Paras.SelectedCity.KaoHsiung:
                     tempData = _context.MainData.Where(w => (w.City == "E"));
                     break;
-                case (int)Models.Paras.City.Hsinchu:
+                case (int)Models.Paras.SelectedCity.Hsinchu:
                     tempData = _context.MainData.Where(w => (w.City == "O" || w.City=="J"));
                     break;
-                case (int)Models.Paras.City.Taoyuan:
+                case (int)Models.Paras.SelectedCity.Taoyuan:
                     tempData = _context.MainData.Where(w => (w.City == "H"));
                     break;
                 default:
@@ -203,7 +202,7 @@ namespace RealPrice.Controllers
         
         public JsonResult CachedData(int City)
         {
-            if(!Enum.IsDefined(typeof(Models.Paras.City), City))
+            if(!Enum.IsDefined(typeof(Models.Paras.SelectedCity), City))
             {
                 return null;
             }
@@ -212,43 +211,43 @@ namespace RealPrice.Controllers
             {
                 switch (City)
                 {
-                    case (int)Models.Paras.City.Taipei:
-                        if (!_cache.TryGetValue(Models.Paras.City.Taipei, out Models.Paras._dtCacheTaipei))
+                    case (int)Models.Paras.SelectedCity.Taipei:
+                        if (!_cache.TryGetValue(Models.Paras.SelectedCity.Taipei, out Models.Paras._dtCacheTaipei))
                         {
                             Models.Paras._dtCacheTaipei = GetAllData(City);
-                            _cache.Set(Models.Paras.City.Taipei, Models.Paras._dtCacheTaipei, new MemoryCacheEntryOptions().SetAbsoluteExpiration(TimeSpan.FromDays(7)));
+                            _cache.Set(Models.Paras.SelectedCity.Taipei, Models.Paras._dtCacheTaipei, new MemoryCacheEntryOptions().SetAbsoluteExpiration(TimeSpan.FromDays(7)));
                         }
                         return Json(Models.Paras._dtCacheTaipei);
 
-                    case (int)Models.Paras.City.TaiChung:
-                        if (!_cache.TryGetValue(Models.Paras.City.TaiChung, out Models.Paras._dtCacheTaiChung))
+                    case (int)Models.Paras.SelectedCity.TaiChung:
+                        if (!_cache.TryGetValue(Models.Paras.SelectedCity.TaiChung, out Models.Paras._dtCacheTaiChung))
                         {
                             Models.Paras._dtCacheTaiChung = GetAllData(City);
-                            _cache.Set(Models.Paras.City.TaiChung, Models.Paras._dtCacheTaiChung, new MemoryCacheEntryOptions().SetAbsoluteExpiration(TimeSpan.FromDays(7)));
+                            _cache.Set(Models.Paras.SelectedCity.TaiChung, Models.Paras._dtCacheTaiChung, new MemoryCacheEntryOptions().SetAbsoluteExpiration(TimeSpan.FromDays(7)));
                         }
                         return Json(Models.Paras._dtCacheTaiChung);
 
-                    case (int)Models.Paras.City.KaoHsiung:
-                        if (!_cache.TryGetValue(Models.Paras.City.KaoHsiung, out Models.Paras._dtCacheKaoHsiung))
+                    case (int)Models.Paras.SelectedCity.KaoHsiung:
+                        if (!_cache.TryGetValue(Models.Paras.SelectedCity.KaoHsiung, out Models.Paras._dtCacheKaoHsiung))
                         {
                             Models.Paras._dtCacheKaoHsiung = GetAllData(City);
-                            _cache.Set(Models.Paras.City.KaoHsiung, Models.Paras._dtCacheKaoHsiung, new MemoryCacheEntryOptions().SetAbsoluteExpiration(TimeSpan.FromDays(7)));
+                            _cache.Set(Models.Paras.SelectedCity.KaoHsiung, Models.Paras._dtCacheKaoHsiung, new MemoryCacheEntryOptions().SetAbsoluteExpiration(TimeSpan.FromDays(7)));
                         }
                         return Json(Models.Paras._dtCacheKaoHsiung);
 
-                    case (int)Models.Paras.City.Hsinchu:
-                        if (!_cache.TryGetValue(Models.Paras.City.Hsinchu, out Models.Paras._dtCacheHsinchu))
+                    case (int)Models.Paras.SelectedCity.Hsinchu:
+                        if (!_cache.TryGetValue(Models.Paras.SelectedCity.Hsinchu, out Models.Paras._dtCacheHsinchu))
                         {
                             Models.Paras._dtCacheHsinchu = GetAllData(City);
-                            _cache.Set(Models.Paras.City.Hsinchu, Models.Paras._dtCacheHsinchu, new MemoryCacheEntryOptions().SetAbsoluteExpiration(TimeSpan.FromDays(7)));
+                            _cache.Set(Models.Paras.SelectedCity.Hsinchu, Models.Paras._dtCacheHsinchu, new MemoryCacheEntryOptions().SetAbsoluteExpiration(TimeSpan.FromDays(7)));
                         }
                         return Json(Models.Paras._dtCacheHsinchu);
 
-                    case (int)Models.Paras.City.Taoyuan:
-                        if (!_cache.TryGetValue(Models.Paras.City.Taoyuan, out Models.Paras._dtCacheTaoyuan))
+                    case (int)Models.Paras.SelectedCity.Taoyuan:
+                        if (!_cache.TryGetValue(Models.Paras.SelectedCity.Taoyuan, out Models.Paras._dtCacheTaoyuan))
                         {
                             Models.Paras._dtCacheTaoyuan = GetAllData(City);
-                            _cache.Set(Models.Paras.City.Taoyuan, Models.Paras._dtCacheTaoyuan, new MemoryCacheEntryOptions().SetAbsoluteExpiration(TimeSpan.FromDays(7)));
+                            _cache.Set(Models.Paras.SelectedCity.Taoyuan, Models.Paras._dtCacheTaoyuan, new MemoryCacheEntryOptions().SetAbsoluteExpiration(TimeSpan.FromDays(7)));
                         }
                         return Json(Models.Paras._dtCacheTaoyuan);
                     default:
@@ -265,83 +264,5 @@ namespace RealPrice.Controllers
 
         }
 
-        #region Geo part
-        private Models.Geo getBaseGeo(string location)
-        {
-            var url = $"https://maps.googleapis.com/maps/api/geocode/json?address={location}&key=AIzaSyBlEnOEgknWMReRy_XAKq2ars1I0zhEuc8";
-            if (string.IsNullOrEmpty(location))
-            {
-                return new Models.Geo(); 
-            }
-            string jsonResult = "";
-            using (WebClient wc = new WebClient())
-            {
-                jsonResult = wc.DownloadString(url);
-            }
-            dynamic j = JsonConvert.DeserializeObject(jsonResult);
-            Models.Geo _geo = new Models.Geo();
-            _geo.lat = j.results[0].geometry.location.lat.Value;
-            _geo.lng = j.results[0].geometry.location.lng.Value;
-            return _geo;//nearby mrt place id
-        }
-        private string getNearByPlaceID(Models.Geo geo, string type)
-        {
-            if (string.IsNullOrEmpty(type))
-            {
-                type = "subway_station";
-            }
-            
-            string jsonResult = "";
-            using (WebClient wc = new WebClient())
-            {
-                
-                string _url = $"https://maps.googleapis.com/maps/api/place/nearbysearch/json?location={geo.lat},{geo.lng}&radius=1000&type={type}&key={Authority.KeyUtility.GMapMrtKey}";
-                jsonResult = wc.DownloadString(_url);
-            }
-            dynamic j = JsonConvert.DeserializeObject(jsonResult);
-            return j.results[0].place_id;//nearby mrt place id
-        }
-        
-        public int getDistanceFromMRT(string location)
-        {
-            var geo = getBaseGeo(location);
-            var place_id = getNearByPlaceID(geo, "");
-            string jsonResult;
-            string _url = $"https://maps.googleapis.com/maps/api/distancematrix/json?origins={location}&destinations=place_id:{place_id}&key={Authority.KeyUtility.GMapMrtKey}";
-            try
-            {
-                using (WebClient wc = new WebClient())
-                {
-                    jsonResult = wc.DownloadString(_url);
-                }
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine(ex.Message);
-                return 0;
-            }
-            dynamic j = JsonConvert.DeserializeObject(jsonResult);
-            return j.rows[0].elements[0].distance.value;//return json format of duration and distance
-        }
-
-        private Models.Geo parseGeo(string jStr)
-        {
-            dynamic jsonResult = JsonConvert.DeserializeObject(jStr);
-            Models.Geo _geo = new Models.Geo();
-            try
-            {
-                _geo.statName = jsonResult.results[0].address_components[0].long_name;
-                _geo.formattedAddress = jsonResult.results[0].formatted_address;
-                _geo.lat = jsonResult.results[0].geometry.location.lat.Value;
-                _geo.lng = jsonResult.results[0].geometry.location.lng.Value;
-                _geo.place_id = jsonResult.results[0].place_id;
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine(e.Message);
-            }
-            return _geo;
-        }
-        #endregion
     }
 }

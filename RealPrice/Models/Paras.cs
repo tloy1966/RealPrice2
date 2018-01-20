@@ -14,7 +14,7 @@ namespace RealPrice.Models
         public static DataTable _dtCacheTaoyuan;
         public readonly static string googleMapKey = "AIzaSyA4pcY_w63SDnIUwlLf7kdmUCAdbiwN2EQ";
 
-        public enum City
+        public enum SelectedCity
         {
             Taipei = 0,
             TaiChung = 1,
@@ -22,19 +22,20 @@ namespace RealPrice.Models
             Hsinchu = 3,
             Taoyuan = 4 
         }
+        
         static public DataTable getCityData(int _city)
         {
-            switch ((City)_city)
+            switch ((SelectedCity)_city)
             {
-                case City.Taipei:
+                case SelectedCity.Taipei:
                     return _dtCacheTaipei;
-                case City.TaiChung:
+                case SelectedCity.TaiChung:
                     return _dtCacheTaiChung;
-                case City.KaoHsiung:
+                case SelectedCity.KaoHsiung:
                     return _dtCacheKaoHsiung;
-                case City.Hsinchu:
+                case SelectedCity.Hsinchu:
                     return _dtCacheHsinchu;
-                case City.Taoyuan:
+                case SelectedCity.Taoyuan:
                     return _dtCacheTaoyuan;
                          
                 default:

@@ -1,11 +1,9 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.26430.6
+VisualStudioVersion = 15.0.27130.2020
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RealPrice", "RealPrice\RealPrice.csproj", "{58ABD9FC-435A-45C0-9FAE-A8A7DB128743}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "test_RealPrice", "test_RealPrice\test_RealPrice.csproj", "{44671379-86AA-436D-BFCA-0CD9CBB72458}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -17,12 +15,11 @@ Global
 		{58ABD9FC-435A-45C0-9FAE-A8A7DB128743}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{58ABD9FC-435A-45C0-9FAE-A8A7DB128743}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{58ABD9FC-435A-45C0-9FAE-A8A7DB128743}.Release|Any CPU.Build.0 = Release|Any CPU
-		{44671379-86AA-436D-BFCA-0CD9CBB72458}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{44671379-86AA-436D-BFCA-0CD9CBB72458}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{44671379-86AA-436D-BFCA-0CD9CBB72458}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{44671379-86AA-436D-BFCA-0CD9CBB72458}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {6A5A49C6-07AD-4FD6-BD7E-73433D5565CD}
 	EndGlobalSection
 EndGlobal
